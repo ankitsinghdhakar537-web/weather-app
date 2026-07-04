@@ -1,0 +1,266 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/* ===== Dark animated background ===== */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0a0e27;
+    background:radial-gradient(ellipse at top left, #1b2a4a 0%, #0a0e27 50%),
+               radial-gradient(ellipse at bottom right, #16213e 0%, #0a0e27 60%);
+    padding:20px;
+    overflow:hidden;
+    position:relative;
+}
+
+/* twinkling stars layer */
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.6), transparent),
+        radial-gradient(2px 2px at 60px 80px, rgba(255,255,255,.4), transparent),
+        radial-gradient(1px 1px at 150px 40px, rgba(255,255,255,.5), transparent),
+        radial-gradient(2px 2px at 220px 120px, rgba(255,255,255,.3), transparent),
+        radial-gradient(1px 1px at 300px 60px, rgba(255,255,255,.6), transparent),
+        radial-gradient(2px 2px at 400px 200px, rgba(255,255,255,.4), transparent),
+        radial-gradient(1px 1px at 500px 100px, rgba(255,255,255,.5), transparent);
+    background-repeat:repeat;
+    background-size:550px 550px;
+    animation:twinkle 5s ease-in-out infinite alternate;
+    z-index:0;
+}
+@keyframes twinkle{
+    0%{ opacity:.3; }
+    100%{ opacity:.9; }
+}
+
+/* glowing color blobs for atmosphere */
+body::after{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle, rgba(67,233,123,.15), transparent 70%);
+    top:-150px;
+    left:-150px;
+    filter:blur(60px);
+    animation:drift 14s ease-in-out infinite;
+    z-index:0;
+}
+@keyframes drift{
+    0%,100%{ transform:translate(0,0); }
+    50%{ transform:translate(80px,60px); }
+}
+
+/* ===== Card ===== */
+.container{
+    width:390px;
+    position:relative;
+    z-index:1;
+    background:linear-gradient(160deg, rgba(30,41,71,.85), rgba(15,22,45,.85));
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:28px;
+    padding:40px 32px;
+    color:#eef1ff;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.06),
+        0 20px 50px rgba(0,0,0,.55),
+        0 0 60px rgba(67,233,123,.08);
+    transition:transform .4s ease, box-shadow .4s ease;
+}
+
+.container:hover{
+    transform:translateY(-6px);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.1),
+        0 25px 60px rgba(0,0,0,.6),
+        0 0 80px rgba(67,233,123,.18);
+}
+
+/* ===== Heading with cloud emoji glow ===== */
+.container h2{
+    text-align:center;
+    margin-bottom:28px;
+    font-size:27px;
+    font-weight:700;
+    letter-spacing:.4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:#fff;
+    text-shadow:0 0 20px rgba(67,233,123,.35);
+}
+.container h2::before{
+    content:"🌤️";
+    font-size:28px;
+    animation:swing 3s ease-in-out infinite;
+    display:inline-block;
+}
+@keyframes swing{
+    0%,100%{ transform:rotate(-8deg); }
+    50%{ transform:rotate(8deg); }
+}
+
+/* ===== Search bar ===== */
+.search{
+    display:flex;
+    gap:10px;
+    background:rgba(255,255,255,.05);
+    padding:6px;
+    border-radius:50px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);
+}
+.search input{
+    flex:1;
+    padding:14px 20px;
+    border:none;
+    outline:none;
+    border-radius:50px;
+    font-size:15px;
+    background:transparent;
+    color:#fff;
+}
+.search input::placeholder{
+    color:rgba(255,255,255,.45);
+}
+.search button{
+    border:none;
+    outline:none;
+    border-radius:50px;
+    padding:14px 26px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#43e97b,#38f9d7);
+    color:#06121a;
+    font-weight:700;
+    font-size:15px;
+    box-shadow:0 6px 20px rgba(67,233,123,.35);
+    transition:.3s ease;
+}
+.search button:hover{
+    transform:translateY(-2px) scale(1.04);
+    box-shadow:0 10px 26px rgba(67,233,123,.5);
+}
+.search button:active{
+    transform:scale(.94);
+}
+
+/* ===== Result block ===== */
+.weather-result{
+    margin-top:30px;
+    text-align:center;
+    animation:fade .6s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fade{
+    from{ opacity:0; transform:translateY(22px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+#cityName{
+    font-size:26px;
+    font-weight:700;
+    margin-bottom:20px;
+    background:linear-gradient(90deg,#fff,#8ef6c8);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+#cityName::after{
+    content:" 📍";
+}
+
+/* ===== Detail lines as glowing dark chips ===== */
+.weather-result p{
+    margin:12px 0;
+    padding:14px 16px;
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    font-size:16px;
+    font-weight:500;
+    letter-spacing:.2px;
+    text-align:left;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:.3s ease;
+}
+.weather-result p:hover{
+    background:rgba(67,233,123,.1);
+    box-shadow:inset 0 0 0 1px rgba(67,233,123,.3), 0 6px 18px rgba(0,0,0,.3);
+    transform:translateX(4px);
+}
+
+/* subtle emoji pulse on the first character of each line */
+.weather-result p:first-of-type{
+    font-size:22px;
+    font-weight:700;
+    justify-content:center;
+    background:rgba(255,255,255,.06);
+}
+
+/* ===== Loading dots (optional, if you add a .loading div) ===== */
+.loading{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:70px;
+    gap:8px;
+}
+.loading .dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#43e97b,#38f9d7);
+    animation:bounce 1.4s infinite ease-in-out both;
+}
+.loading .dot:nth-child(2){ animation-delay:.15s; }
+.loading .dot:nth-child(3){ animation-delay:.3s; }
+@keyframes bounce{
+    0%,80%,100%{ transform:scale(0); opacity:.4; }
+    40%{ transform:scale(1); opacity:1; }
+}
+
+/* ===== Error message (optional, if you add a .error-msg div) ===== */
+.error-msg{
+    margin-top:20px;
+    padding:14px;
+    border-radius:14px;
+    background:rgba(255,90,90,.12);
+    box-shadow:inset 0 0 0 1px rgba(255,90,90,.35);
+    font-size:14px;
+    text-align:center;
+    color:#ffb4b4;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar{ width:6px; }
+::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.25); border-radius:10px; }
+
+/* ===== Responsive ===== */
+@media(max-width:450px){
+    .container{
+        width:100%;
+        padding:30px 22px;
+    }
+    .search{
+        flex-direction:column;
+        border-radius:20px;
+        padding:10px;
+    }
+    .search button{
+        width:100%;
+    }
+}
